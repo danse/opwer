@@ -43,3 +43,11 @@ by Opwer.
 
 Note that this structure is not computationally efficient, because i
 am currently more concerned about flexibility than performances.
+
+#### Interface key
+
+My assumption is that you will use the commands provided by Opwer
+always from the same directory, where you will keep configuration
+files for search and filtering scripts. That directory should also
+contain a file named `upwork-key`, containing the key provided from
+Upwork to you in order to use its services
