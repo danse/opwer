@@ -1,0 +1,2 @@
+- look for projects with zero applications
+- look for projects not containing the word *ASAP* or PHP :D
