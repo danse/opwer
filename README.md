@@ -51,3 +51,9 @@ always from the same directory, where you will keep configuration
 files for search and filtering scripts. That directory should also
 contain a file named `upwork-key`, containing the key provided from
 Upwork to you in order to use its services
+
+#### Dependencies
+
+This package depends on the
+[`haskell-upwork`](https://github.com/danse/haskell-upwork)
+library. For more info please open an issue
