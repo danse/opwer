@@ -1,3 +1,6 @@
 Setup.hs
 .stack-work/
 ignored by git
+.cabal-sandbox/
+cabal.sandbox.config
+dist/

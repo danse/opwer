@@ -51,9 +51,3 @@ always from the same directory, where you will keep configuration
 files for search and filtering scripts. That directory should also
 contain a file named `upwork-key`, containing the key provided from
 Upwork to you in order to use its services
-
-#### Dependencies
-
-Since i am using `oauthenticated` for OAuth 1, i needed to use Stack
-and `lts-2.22` in order to have access to old versions of Haskell
-packages
