@@ -32,3 +32,8 @@ sortJobDetails :: ([JobProfile] -> [JobProfile]) -> IO ([()])
 sortJobDetails fun = do
   contents <- C.getContents
   mapM putStrLn (sortContents contents fun)
+
+modifyList :: ([JobProfile] -> [JobProfile]) -> IO ([()])
+modifyList fun = do
+  contents <- C.getContents
+  mapM putStrLn (map show (fun (map (read . C.unpack) (C.lines contents))))
