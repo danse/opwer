@@ -5,9 +5,11 @@ import Web.Authenticate.OAuth
 import qualified Data.ByteString.Lazy.Char8 as C
 import Data.Aeson( eitherDecode )
 import Control.Monad( mapM )
-import Data.Either( rights, lefts )
+import Data.Either( partitionEithers )
 import Network.HTTP.Client( responseBody )
 import Control.Exception( SomeException )
+import System.IO( stderr, hPutStrLn )
+import Text.Read( readEither )
 import Upwork
 
 credentialFileName = "opwer-credential"
@@ -24,8 +26,7 @@ readCredential = do
 
 sortContents :: C.ByteString -> ([JobProfile] -> [JobProfile]) -> [String]
 sortContents cont sort_ = (((map show) . sort_ . (map profile)) r) ++ l
-  where r = rights decoded
-        l = lefts decoded
+  where (l,r) = partitionEithers decoded
         decoded = map eitherDecode (C.lines cont)
 
 parseJobDetails :: C.ByteString -> String
@@ -41,7 +42,10 @@ sortJobDetails fun = do
 modifyList :: ([JobProfile] -> [JobProfile]) -> IO ([()])
 modifyList fun = do
   contents <- C.getContents
-  mapM putStrLn (map show (fun (map (read . C.unpack) (C.lines contents))))
+  let (l,r) = partitionEithers (map (readEither . C.unpack) (C.lines contents))
+    in do
+      mapM putStrLn (map show (fun r))
+      mapM (hPutStrLn stderr) l
 
 printResponse = C.putStrLn . responseBody
 
