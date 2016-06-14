@@ -52,4 +52,7 @@ printResponse = C.putStrLn . responseBody
 printException :: SomeException -> IO ()
 printException e = putStrLn (show e)
 
+showException :: SomeException -> IO String
+showException e = return (show e)
+
 

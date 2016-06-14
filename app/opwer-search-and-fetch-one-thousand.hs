@@ -10,7 +10,7 @@ import Control.Exception( catch )
 import Data.Aeson( decode )
 import Network.HTTP.Client( responseBody )
 import Control.Applicative( (<$>) )
-import Control.Concurrent( forkIO )
+import Control.Concurrent.Async
 
 
 readQuery :: String -> [(String, String)]
@@ -42,5 +42,6 @@ main = do
   [arg] <- getArgs
   queryContents <- readFile arg
   OpwerCredential oauth credential <- readCredential
-  sequence (map (searchAndFetch oauth credential) (addPages queryContents))
+  asyncs <- mapM (async . (searchAndFetch oauth credential)) (addPages queryContents)
+  mapM wait asyncs
   return ()
