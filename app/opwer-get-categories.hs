@@ -3,4 +3,5 @@ import Upwork
 
 main = do
   OpwerCredential oauth credential <- readCredential
-  askForCategories oauth credential
+  resp <- askForCategories oauth credential
+  printResponse resp

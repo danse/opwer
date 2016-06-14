@@ -6,6 +6,7 @@ import qualified Data.ByteString.Lazy.Char8 as C
 import Data.Aeson( eitherDecode )
 import Control.Monad( mapM )
 import Data.Either( rights, lefts )
+import Network.HTTP.Client( responseBody )
 import Upwork
 
 credentialFileName = "opwer-credential"
@@ -37,3 +38,5 @@ modifyList :: ([JobProfile] -> [JobProfile]) -> IO ([()])
 modifyList fun = do
   contents <- C.getContents
   mapM putStrLn (map show (fun (map (read . C.unpack) (C.lines contents))))
+
+printResponse = C.putStrLn . responseBody

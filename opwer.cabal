@@ -1,5 +1,5 @@
 name:                opwer
-version:             0.2.1.0
+version:             0.2.1.1
 synopsis:            Initial project template from stack
 description:         Please see README.md
 homepage:            http://github.com/githubuser/opwer#readme
@@ -20,7 +20,8 @@ library
                        aeson,
                        upwork < 1,
                        authenticate-oauth,
-                       bytestring
+                       bytestring,
+                       http-client
   default-language:    Haskell2010
 
 executable opwer-init

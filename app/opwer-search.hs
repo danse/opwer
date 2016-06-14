@@ -18,4 +18,5 @@ main = do
   [arg] <- getArgs
   queryContents <- readFile arg
   OpwerCredential oauth credential <- readCredential
-  askForJobs oauth credential (convertQuery queryContents)
+  resp <- askForJobs oauth credential (convertQuery queryContents)
+  printResponse resp

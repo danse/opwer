@@ -8,11 +8,15 @@ import Control.Exception( catch, SomeException )
 printException :: SomeException -> IO ()
 printException e = putStrLn (show e)
 
+askAndPrint oauth credential id = do
+  resp <- askForJob oauth credential id
+  printResponse resp
+
 main = do
   OpwerCredential oauth credential <- readCredential
   contents <- L.getContents
   case (decode contents :: Maybe SearchResult) of
     Nothing -> putStrLn "The input does not seem valid"
     Just result -> do
-      mapM (\ (JobResult id) -> catch (askForJob oauth credential id) printException) (jobs result)
+      mapM (\ (JobResult id) -> catch (askAndPrint oauth credential id) printException) (jobs result)
       return ()
