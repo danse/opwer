@@ -7,6 +7,7 @@ import Data.Aeson( eitherDecode )
 import Control.Monad( mapM )
 import Data.Either( rights, lefts )
 import Network.HTTP.Client( responseBody )
+import Control.Exception( SomeException )
 import Upwork
 
 credentialFileName = "opwer-credential"
@@ -27,6 +28,9 @@ sortContents cont sort_ = (((map show) . sort_ . (map profile)) r) ++ l
         l = lefts decoded
         decoded = map eitherDecode (C.lines cont)
 
+parseJobDetails :: C.ByteString -> String
+parseJobDetails det = either id (show . profile) (eitherDecode det)
+
 -- |Given a sorting function, reads lines with job profiles from
 -- standard input, and outputs them sorted
 sortJobDetails :: ([JobProfile] -> [JobProfile]) -> IO ([()])
@@ -40,3 +44,8 @@ modifyList fun = do
   mapM putStrLn (map show (fun (map (read . C.unpack) (C.lines contents))))
 
 printResponse = C.putStrLn . responseBody
+
+printException :: SomeException -> IO ()
+printException e = putStrLn (show e)
+
+

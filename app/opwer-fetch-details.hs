@@ -5,9 +5,6 @@ import Data.Aeson( decode )
 import qualified Data.ByteString.Lazy as L
 import Control.Exception( catch, SomeException )
 
-printException :: SomeException -> IO ()
-printException e = putStrLn (show e)
-
 askAndPrint oauth credential id = do
   resp <- askForJob oauth credential id
   printResponse resp
