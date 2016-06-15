@@ -19,11 +19,13 @@ readQuery = read
 adaptQuery :: (String, String) -> (ByteString, Maybe ByteString)
 adaptQuery (a,b) = (fromString a, (Just . fromString) b)
 
-addPages :: String -> [[(String, String)]]
-addPages queryContents = map addToQuery pages
+addPages :: [String] -> [[(String, String)]]
+addPages (base:extensions) = map addToQuery pages
   where addToQuery page = ("paging", (show (page*100))++";100") : query
         pages = [0..9]
-        query = readQuery queryContents
+        baseQuery = read base
+        queryExtensions = map read extensions
+        query = baseQuery ++ queryExtensions
 
 askAndPrintParsed :: _ -> _ -> _ -> IO ()
 askAndPrintParsed oauth credential id = do
@@ -39,9 +41,9 @@ searchAndFetch oauth credential query = do
       return ()
 
 main = do
-  [arg] <- getArgs
-  queryContents <- readFile arg
+  args <- getArgs
+  queryAndExtensions <- mapM readFile args
   OpwerCredential oauth credential <- readCredential
-  asyncs <- mapM (async . (searchAndFetch oauth credential)) (addPages queryContents)
+  asyncs <- mapM (async . (searchAndFetch oauth credential)) (addPages queryAndExtensions)
   mapM wait asyncs
   return ()
