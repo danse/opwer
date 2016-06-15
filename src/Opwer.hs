@@ -10,7 +10,7 @@ import Network.HTTP.Client( responseBody )
 import Control.Exception( SomeException )
 import System.IO( stderr, hPutStrLn )
 import Text.Read( readEither )
-import Upwork
+import Upwork hiding( id )
 
 credentialFileName = "opwer-credential"
 
