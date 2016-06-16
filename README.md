@@ -21,13 +21,13 @@ which this project is built.
 
 #### Usage
 
-    $ opwer-search search.json | my-filter
+    $ opwer-search query | runhaskell my-filter.hs
 
 This will search for jobs using search properties described in
-`search.json`, and then filter them using `my-filter`. `search.json`
-is a file where keys and values correspond to [these search
-parameters](https://developers.upwork.com/?lang=python#jobs_search-for-jobs).
-What is `my-filter`? Read below
+`query`, and then filter them using `my-filter.hs`. `query` is a file
+containing parameters corresponding to
+[these](https://developers.upwork.com/?lang=python#jobs_search-for-jobs).
+What is `my-filter.hs`? Read below
 
 #### Filtering scripts
 
@@ -48,9 +48,10 @@ am currently more concerned about flexibility than performances.
 
 My assumption is that you will use the commands provided by Opwer
 always from the same directory, where you will keep configuration
-files for search and filtering scripts. That directory should also
-contain a file named `upwork-key`, containing the key provided from
-Upwork to you in order to use its services
+files for search and filtering scripts. Running `opwer-init` in that
+directory will produce a file named `opwer-credential`, containing the
+key provided from Upwork to you in order to use its services. This is
+used by other Opwer scripts like `opwer-search`
 
 #### Dependencies
 
