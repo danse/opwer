@@ -34,9 +34,9 @@ executable opwer-init
                        bytestring
   default-language:    Haskell2010
 
-executable opwer-search
+executable opwer-search-raw
   hs-source-dirs:      app
-  main-is:             opwer-search.hs
+  main-is:             opwer-search-raw.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base,
                        opwer,
