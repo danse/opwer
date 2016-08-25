@@ -23,6 +23,7 @@ format :: [JobProfile] -> Html
 format profiles = docTypeHtml $ do
   H.head $ do
     H.title "Results"
+    H.style "a:visited { color: #bfbfbf; }"
   body $ do
     p "Results:"
     H.div (forM_ profiles formatProfile)
