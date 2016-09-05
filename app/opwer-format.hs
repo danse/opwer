@@ -10,15 +10,16 @@ import Data.Either( partitionEithers )
 import Text.Read( readEither )
 import System.IO( stderr, hPutStrLn )
 import Opwer
+import Text.Printf( printf )
 
 formatProfile :: JobProfile -> Html
 formatProfile profile = H.div $ do
   H.a ! A.target "_blank" ! A.href (toValue ref) $ do
     (H.span . toHtml) (((show . length . wrapper . candidates) profile) ++ " ")
-    (H.span . toHtml) ("(" ++ (opTotCand profile) ++ ") ")
+    (H.span . toHtml) ((((printf "%.2f") . interestRatio) profile) ++ " ":: [Char])
+    -- (H.span . toHtml) ("(" ++ (opTotCand profile) ++ ") ")
     (H.span . toHtml) ((opTitle profile) ++ " ")
     (H.span . toHtml) (opContractorTier profile ++ " ")
-    (H.span . toHtml) ("interest: " ++ ((show . interestRatio) profile))
   where ref = "https://www.upwork.com/jobs/_"++(Upwork.id profile)
 
 format :: [JobProfile] -> Html
