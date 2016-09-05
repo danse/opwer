@@ -55,4 +55,8 @@ printException e = putStrLn (show e)
 showException :: SomeException -> IO String
 showException e = return (show e)
 
+interestRatio :: JobProfile -> Float
+interestRatio job = i / c
+  where i = (read . intervieweesTotalActive) job
+        c = (fromIntegral . length . wrapper . candidates) job
 

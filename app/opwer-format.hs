@@ -9,6 +9,7 @@ import qualified Data.ByteString.Lazy.Char8 as C
 import Data.Either( partitionEithers )
 import Text.Read( readEither )
 import System.IO( stderr, hPutStrLn )
+import Opwer
 
 formatProfile :: JobProfile -> Html
 formatProfile profile = H.div $ do
@@ -16,7 +17,8 @@ formatProfile profile = H.div $ do
     (H.span . toHtml) (((show . length . wrapper . candidates) profile) ++ " ")
     (H.span . toHtml) ("(" ++ (opTotCand profile) ++ ") ")
     (H.span . toHtml) ((opTitle profile) ++ " ")
-    (H.span . toHtml) (opContractorTier profile)
+    (H.span . toHtml) (opContractorTier profile ++ " ")
+    (H.span . toHtml) ("interest: " ++ ((show . interestRatio) profile))
   where ref = "https://www.upwork.com/jobs/_"++(Upwork.id profile)
 
 format :: [JobProfile] -> Html
