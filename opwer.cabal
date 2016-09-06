@@ -1,5 +1,5 @@
 name:                opwer
-version:             0.3.5.0
+version:             0.3.6.0
 synopsis:            Initial project template from stack
 description:         Please see README.md
 homepage:            http://github.com/githubuser/opwer#readme
@@ -103,6 +103,16 @@ executable opwer-fetch-details
                        upwork < 1,
                        aeson,
                        bytestring
+  default-language:    Haskell2010
+
+executable opwer-fetch-details-by-id
+  hs-source-dirs:      app
+  main-is:             opwer-fetch-details-by-id.hs
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  build-depends:       base,
+                       opwer,
+                       authenticate-oauth,
+                       upwork < 1
   default-language:    Haskell2010
 
 test-suite opwer-test
