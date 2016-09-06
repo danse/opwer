@@ -20,6 +20,7 @@ formatProfile profile = H.div $ do
     -- (H.span . toHtml) ("(" ++ (opTotCand profile) ++ ") ")
     (H.span . toHtml) ((opTitle profile) ++ " ")
     (H.span . toHtml) (opContractorTier profile ++ " ")
+    (H.span . toHtml) (opHighHourlyRateAll profile ++ " ")
   where ref = "https://www.upwork.com/jobs/_"++(Upwork.id profile)
 
 format :: [JobProfile] -> Html
