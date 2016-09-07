@@ -55,8 +55,28 @@ printException e = putStrLn (show e)
 showException :: SomeException -> IO String
 showException e = return (show e)
 
+numberOfCandidates :: JobProfile -> Int
+numberOfCandidates = length . candidatesWrapper . candidates
+
 interestRatio :: JobProfile -> Float
 interestRatio job = i / c
   where i = (read . intervieweesTotalActive) job
-        c = (fromIntegral . length . wrapper . candidates) job
+        c = (fromIntegral . numberOfCandidates) job
 
+readFloat :: String -> Float
+readFloat = read
+
+-- > readRate "$35.4"
+-- 35.4
+readRate :: String -> Float
+readRate s = read (drop 1 s)
+
+averageRate assignments
+  | totalPaid == 0 = 0
+  | otherwise = totalPaid / totalHours
+  where totalPaid = sum (map paid assignments)
+        totalHours = sum (map hours assignments)
+        hours = readFloat . asTotalHours
+        paid a = ((readRate . asRate) a) * (hours a)
+
+averageAssignmentRate = averageRate . assignmentsWrapper . assignments
