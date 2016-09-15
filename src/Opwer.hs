@@ -71,6 +71,10 @@ readFloat = read
 readRate :: String -> Float
 readRate s = read (drop 1 s)
 
+oneOrManyToMany :: OneOrMany a -> [a]
+oneOrManyToMany (One a) = [a]
+oneOrManyToMany (Many aa) = aa
+
 averageRate assignments
   | totalPaid == 0 = 0
   | otherwise = totalPaid / totalHours
@@ -79,4 +83,4 @@ averageRate assignments
         hours = readFloat . asTotalHours
         paid a = ((readRate . asRate) a) * (hours a)
 
-averageAssignmentRate = averageRate . assignmentsWrapper . assignments
+averageAssignmentRate = averageRate . oneOrManyToMany . assignmentsWrapper . assignments
