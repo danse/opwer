@@ -56,5 +56,6 @@ used by other Opwer scripts like `opwer-search`
 #### Dependencies
 
 This package depends on the
-[`haskell-upwork`](https://github.com/danse/haskell-upwork)
-library. For more info please open an issue
+[`haskell-upwork`](https://github.com/danse/haskell-upwork) and
+[`web-output`](https://github.com/danse/web-output) libraries. For
+more info please open an issue

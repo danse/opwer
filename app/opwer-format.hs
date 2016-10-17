@@ -11,6 +11,7 @@ import Text.Read( readEither )
 import System.IO( stderr, hPutStrLn )
 import Opwer
 import Text.Printf( printf )
+import WebOutput (toTheBrowser)
 
 formatProfile :: JobProfile -> Html
 formatProfile profile = H.div $ do
@@ -21,6 +22,8 @@ formatProfile profile = H.div $ do
     (H.span . toHtml) ((opTitle profile) ++ " ")
     (H.span . toHtml) ("tier: " ++ opContractorTier profile ++ " ")
     (H.span . toHtml) ("average: " ++ (show . averageAssignmentRate) profile ++ " ")
+    (H.span . toHtml) ("total: " ++ (show . opTotCharge . buyer) profile ++ " ")
+    (H.span . toHtml) ("fixed: " ++ (show . amount) profile ++ " ")
   where ref = "https://www.upwork.com/jobs/_"++(Upwork.id profile)
 
 format :: [JobProfile] -> Html
@@ -36,6 +39,6 @@ main = do
   contents <- C.getContents
   let (l,r) = partitionEithers (map (readEither . C.unpack) (C.lines contents))
     in do
-      putStr (renderHtml (format r))
+      toTheBrowser (renderHtml (format r))
       mapM (hPutStrLn stderr) l
 
