@@ -9,7 +9,7 @@ import Data.Either( partitionEithers )
 import Network.HTTP.Client( responseBody )
 import Control.Exception( SomeException )
 import System.IO( stderr, hPutStrLn )
-import Text.Read( readEither )
+import Text.Read (readEither, readMaybe)
 import Upwork hiding( id )
 
 credentialFileName = "opwer-credential"
@@ -65,6 +65,9 @@ interestRatio job = i / c
 
 readFloat :: String -> Float
 readFloat = read
+
+readFloatOrZero :: String -> Float
+readFloatOrZero = (maybe 0 Prelude.id) . readMaybe
 
 -- > readRate "$35.4"
 -- 35.4
