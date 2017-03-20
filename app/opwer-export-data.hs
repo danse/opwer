@@ -18,7 +18,7 @@ formatProfile profile = intercalate "," [cand, inte, tier, char, amou]
         amou = (amount) profile
 
 format :: [JobProfile] -> String
-format = unlines . map formatProfile
+format = unlines . ("cand,inte,tier,char,amou":) . map formatProfile
 
 main = do
   contents <- C.getContents
