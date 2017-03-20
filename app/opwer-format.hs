@@ -31,6 +31,7 @@ format profiles = docTypeHtml $ do
   H.head $ do
     H.title "Results"
     H.style "a:visited { color: #bfbfbf; }"
+    H.style "a:hover { color: #e473bb; }"
   body $ do
     p "Results:"
     H.div (forM_ profiles formatProfile)
