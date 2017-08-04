@@ -19,7 +19,7 @@ formatProfile profile = H.div $ do
     (H.span . toHtml) (((show . numberOfCandidates) profile) ++ " ")
     (H.span . toHtml) ((((printf "%.2f") . interestRatio) profile) ++ " ":: [Char])
     -- (H.span . toHtml) ("(" ++ (opTotCand profile) ++ ") ")
-    (H.span . toHtml) ((opTitle profile) ++ " ")
+    (H.span . toHtml) ((opTitle profile) ++ " ") ! A.class_ "job-title"
     (H.span . toHtml) ("tier: " ++ opContractorTier profile ++ " ")
     (H.span . toHtml) ("average: " ++ (show . averageAssignmentRate) profile ++ " ")
     (H.span . toHtml) ("total: " ++ (show . opTotCharge . buyer) profile ++ " ")
@@ -32,6 +32,8 @@ format profiles = docTypeHtml $ do
     H.title "Results"
     H.style "a:visited { color: #bfbfbf; }"
     H.style "a:hover { color: #e473bb; }"
+    H.style "a { text-decoration: none }"
+    H.style ".job-title { font-size: 19pt; line-height: 40pt; margin: 26pt; }"
   body $ do
     p "Results:"
     H.div (forM_ profiles formatProfile)
