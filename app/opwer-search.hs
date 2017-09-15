@@ -50,7 +50,7 @@ data Options = Options {
 
 optionParser :: Parser Options
 optionParser = Options
-               <$> some (argument str (metavar "INPUT_MARGIN_FILES ..."))
+               <$> some (argument str (metavar "query-files ..."))
                <*> option auto (long "pages" <> short 'p' <> Options.Applicative.value 9)
 
 optionParserInfo :: ParserInfo Options
